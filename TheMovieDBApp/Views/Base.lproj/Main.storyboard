@@ -285,6 +285,15 @@
                         <viewLayoutGuide key="safeArea" id="guE-jk-sSl"/>
                     </view>
                     <navigationItem key="navigationItem" title="Details" id="RYB-eh-gRk"/>
+                    <connections>
+                        <outlet property="movieDescriptionTextView" destination="QvF-Ls-IvD" id="ggk-he-lCj"/>
+                        <outlet property="moviePlayTrailerButton" destination="cMY-qI-IwC" id="1ZR-s0-Pfg"/>
+                        <outlet property="moviePosterImageView" destination="Jcv-KT-TH6" id="Bn5-VJ-0WC"/>
+                        <outlet property="movieReleaseDateLabel" destination="qFm-Hj-mIa" id="c0x-57-M9j"/>
+                        <outlet property="movieTaglineLabel" destination="SGc-Vg-thC" id="urn-3S-Qg8"/>
+                        <outlet property="movieTitleLabel" destination="ICg-b7-yyh" id="bVY-Fl-SXe"/>
+                        <outlet property="movieVoteAverageLabel" destination="qNP-aR-cgp" id="QLQ-rs-f3H"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ztk-zy-Rbm" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
