@@ -33,19 +33,19 @@ class MovieDetailsViewController: UIViewController {
     
     func fetchMovieDetailsAPI() {
         print(movieID)
-        let url = URL(string: "https://api.themoviedb.org/3/movie/\(movieID)?api_key=af4529267a761468f007041392247475&language=en-US")
+        let url = URL(string: "https://api.themoviedb.org/3/movie/\(movieID)?api_key=af4529267a761468f007041392247475&language=en-US&append_to_response=videos")
         
-        URLSession.shared.dataTask(with: url!) { (data, response, error) in
+        URLSession.shared.dataTask(with: url!) { [weak self] (data, response, error) in
             do {
                 if error == nil {
-                    self.movieDetails = try JSONDecoder().decode(MovieDetails.self, from: data!)
+                    self?.movieDetails = try JSONDecoder().decode(MovieDetails.self, from: data!)
                     
                     DispatchQueue.main.async {
-                        self.populateMovieData()
+                        self?.populateMovieData()
                     }
 
                 } else {
-                    print("There is an error: \(error.debugDescription)")
+                    print("Fetching Movie Details API error: \(error.debugDescription)")
                 }
                 
             } catch let error {
@@ -56,20 +56,14 @@ class MovieDetailsViewController: UIViewController {
     }
     
     func populateMovieData() {
-        movieTitleLabel.text          = movieDetails?.title
+        movieTitleLabel.text          = movieDetails?.title.isEmpty == false ? movieDetails?.title : movieDetails?.originalTitle
         movieTaglineLabel.text        = movieDetails?.tagline
-        movieReleaseDateLabel.text    = movieDetails?.releaseDate
-        movieVoteAverageLabel.text    = "\(String(describing: movieDetails?.voteAverage))"
+        movieReleaseDateLabel.text    = "RELEASED: " + (movieDetails?.releaseDate ?? "N/A")
+        movieVoteAverageLabel.text    = movieDetails?.voteAverage != nil ? "★ " + "\(movieDetails!.voteAverage)" : "★ N/A"
         movieDescriptionTextView.text = movieDetails?.overview
-        
-        if movieDetails?.video == true {
-            self.moviePlayTrailerButton.defaultLayout()
-        } else {
-            self.moviePlayTrailerButton.disabledLayout()
-        }
-        
-        let url = URL(string: "https://image.tmdb.org/t/p/w500\(movieDetails!.posterPath)")
-        moviePosterImageView.kf.setImage(with: url)
+//        movieDetails?.video == true   ? moviePlayTrailerButton.defaultLayout() : moviePlayTrailerButton.disabledLayout()
+        movieDetails?.videos.results.count != 0 ? moviePlayTrailerButton.defaultLayout() : moviePlayTrailerButton.disabledLayout()
+        moviePosterImageView.kf.setImage(with: URL(string: "https://image.tmdb.org/t/p/w500\(movieDetails!.posterPath)"))
     }
     
 }

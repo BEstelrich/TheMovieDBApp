@@ -47,7 +47,7 @@
                                                             <subviews>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qL0-5x-n8z">
                                                                     <rect key="frame" x="0.0" y="0.0" width="174" height="22"/>
-                                                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                                                                    <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
                                                                     <nil key="textColor"/>
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
@@ -126,7 +126,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="56"/>
                                 <color key="barTintColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <items>
-                                    <navigationItem title="Title" id="vWb-Ld-MOL">
+                                    <navigationItem title="Movie Details" id="vWb-Ld-MOL">
                                         <barButtonItem key="rightBarButtonItem" systemItem="done" id="NY4-Jj-QEa">
                                             <connections>
                                                 <action selector="tapToCloseView:" destination="c3q-RG-q36" id="a7U-9D-NiY"/>

@@ -18,32 +18,35 @@ class TrendingMoviesViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupTrendingMoviesCollectionView()
-        fetchTrendingAPI()
+        fetchTrendingAPI(withURL: Constants.API.trendingMovies)
     }
     
     
-    func fetchTrendingAPI() {
-        let url = URL(string: Constants.API.trendingMovies)
+    func fetchTrendingAPI(withURL url: String) {
+        let url = URL(string: url)
         
-        URLSession.shared.dataTask(with: url!) { (data, response, error) in
+        URLSession.shared.dataTask(with: url!) { [weak self] (data, response, error) in
             do {
                 if error == nil {
                     let result = try JSONDecoder().decode(JSON.self, from: data!)
-                    self.movies = result.results
                     
-                    let sortedByPopularity = self.movies?.sorted {
+//                    for movie in result.results {
+//                        self?.movies?.append(movie)
+//                    }
+                    
+                    self?.movies = result.results
+                    
+                    self?.movies?.sort {
                         $0.popularity > $1.popularity
                     }
                     
-                    self.movies = sortedByPopularity
+                    print(self!.movies?.count)
                     
                     DispatchQueue.main.async {
-                        self.trendingMoviesCollectionView.reloadData()
+                        self?.trendingMoviesCollectionView.reloadData()
                     }
-                    
-                    print(self.movies?.count ?? 0)
                 } else {
-                    print("There is an error: \(error.debugDescription)")
+                    print("Fetching Trending Movies API error: \(error.debugDescription)")
                 }
                 
             } catch let error {
@@ -80,16 +83,27 @@ extension TrendingMoviesViewController: UICollectionViewDelegate, UICollectionVi
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = trendingMoviesCollectionView.dequeueReusableCell(withReuseIdentifier: Constants.Identifiers.trendingMoviesCell, for: indexPath) as? TrendingMoviesCollectionViewCell else { return UICollectionViewCell() }
         
+//        if isLastElementAtTheIndexPath(indexPath) {
+//            fetchTrendingAPI(withURL: Constants.API.trendingMovies + "&page=" + "2")
+//        }
+        
         let movie = movies?[indexPath.row]
-        
-        cell.movieTitleLabel.text = (movie?.title?.isEmpty == false ) ? movie?.title : movie?.name
+        cell.movieTitleLabel.text      = movie?.title?.isEmpty == false ? movie?.title : movie?.name
         cell.moviePopularityLabel.text = "Popularity: \(String(describing: movie?.popularity ?? 0))"
-        
-        let url = URL(string: "https://image.tmdb.org/t/p/w500\(movie!.posterPath)")
-        cell.moviePosterImageView.kf.setImage(with: url)
+        cell.moviePosterImageView.kf.setImage(with: URL(string: "https://image.tmdb.org/t/p/w500\(movie!.posterPath)"))
         
         return cell
     }
+    
+//    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+//        if indexPath.row == movies!.count - 1 {
+//            updateNextSet()
+//        }
+//    }
+//    
+//    func updateNextSet() {
+//        fetchTrendingAPI(withURL: Constants.API.trendingMovies + "&page=" + "\(2)")
+//    }
 
     
 }

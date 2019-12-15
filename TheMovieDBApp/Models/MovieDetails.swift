@@ -11,62 +11,46 @@ import Foundation
 import Foundation
 
 // MARK: - MovieDetails
-//struct MovieDetails: Codable {
-//    let backdropPath: String
-//    let budget: Int
-//    let homepage: String
-//    let id: Int
-//    let imdbID, originalLanguage, originalTitle, overview: String
-//    let popularity: Double
-//    let posterPath: String
-//    let releaseDate: String
-//    let revenue, runtime: Int
-//    let status, tagline, title: String
-//    let video: Bool
-//    let voteAverage: Double
-//    let voteCount: Int
-//
-//    enum CodingKeys: String, CodingKey {
-//        case backdropPath = "backdrop_path"
-//        case budget
-//        case homepage
-//        case id
-//        case imdbID = "imdb_id"
-//        case originalLanguage = "original_language"
-//        case originalTitle = "original_title"
-//        case overview, popularity
-//        case posterPath = "poster_path"
-//        case releaseDate = "release_date"
-//        case revenue, runtime
-//        case status
-//        case tagline
-//        case title
-//        case video
-//        case voteAverage = "vote_average"
-//        case voteCount = "vote_count"
-//    }
-//}
-
 struct MovieDetails: Codable {
-    let id         : Int
-    let title      : String
-    let popularity : Double
-    let posterPath : String
-    let releaseDate: String
-    let tagline    : String
-    let video      : Bool
-    let voteAverage: Double
-    let overview   : String
+    let id           : Int
+    let posterPath   : String
+    let video        : Bool
+    let title        : String
+    let originalTitle: String
+    let tagline      : String
+    let releaseDate  : String
+    let voteAverage  : Double
+    let overview     : String
+    let videos       : Videos
 
     enum CodingKeys: String, CodingKey {
         case id
-        case title
-        case popularity
-        case posterPath = "poster_path"
-        case releaseDate = "release_date"
-        case tagline
+        case posterPath    = "poster_path"
         case video
-        case voteAverage = "vote_average"
+        case title
+        case originalTitle = "original_title"
+        case tagline
+        case releaseDate   = "release_date"
+        case voteAverage   = "vote_average"
         case overview
+        case videos
+    }
+}
+
+struct Videos: Codable {
+    let results: [Video]
+}
+
+struct Video: Codable {
+    let id, iso639_1, iso3166_1, key: String
+    let name, site: String
+    let size: Int
+    let type: String
+
+    enum CodingKeys: String, CodingKey {
+        case id
+        case iso639_1 = "iso_639_1"
+        case iso3166_1 = "iso_3166_1"
+        case key, name, site, size, type
     }
 }

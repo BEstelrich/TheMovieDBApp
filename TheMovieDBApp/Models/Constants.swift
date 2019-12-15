@@ -20,7 +20,7 @@ class Constants {
     
     final class API {
         private let APIKey = "af4529267a761468f007041392247475"
-        static let trendingMovies: String = "https://api.themoviedb.org/3/trending/all/day?api_key=af4529267a761468f007041392247475"
+        static let trendingMovies: String = "https://api.themoviedb.org/3/trending/movie/day?api_key=af4529267a761468f007041392247475"
     }
     
     final class Segues {
