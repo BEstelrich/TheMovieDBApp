@@ -47,7 +47,7 @@
                                                             <subviews>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qL0-5x-n8z">
                                                                     <rect key="frame" x="0.0" y="0.0" width="174" height="22"/>
-                                                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
+                                                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
                                                                     <nil key="textColor"/>
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
@@ -56,7 +56,7 @@
                                                                     <constraints>
                                                                         <constraint firstAttribute="height" constant="18" id="8ld-za-9Uy"/>
                                                                     </constraints>
-                                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                                     <nil key="textColor"/>
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
@@ -90,7 +90,7 @@
                                             <outlet property="moviePopularityLabel" destination="35b-wk-0w1" id="uFm-4f-ctN"/>
                                             <outlet property="moviePosterImageView" destination="3ge-rj-ax9" id="jXG-4C-qGO"/>
                                             <outlet property="movieTitleLabel" destination="qL0-5x-n8z" id="5p4-QY-yJN"/>
-                                            <segue destination="c3q-RG-q36" kind="presentation" id="GsN-Et-fv7"/>
+                                            <segue destination="c3q-RG-q36" kind="presentation" identifier="MovieToMovieDetailsSegue" id="GsN-Et-fv7"/>
                                         </connections>
                                     </collectionViewCell>
                                 </cells>
@@ -216,7 +216,7 @@
                                             </stackView>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cMY-qI-IwC" customClass="PlayTrailerButton" customModule="TheMovieDBApp" customModuleProvider="target">
                                                 <rect key="frame" x="197" y="275" width="100" height="40"/>
-                                                <color key="backgroundColor" systemColor="systemBlueColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <color key="backgroundColor" systemColor="systemGrayColor" red="0.5568627451" green="0.5568627451" blue="0.57647058819999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="100" id="IQ1-Iv-ase"/>
                                                     <constraint firstAttribute="height" constant="40" id="h74-8T-VPb"/>

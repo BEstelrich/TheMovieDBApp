@@ -31,6 +31,16 @@ class PlayTrailerButton: UIButton {
     
     
     func defaultLayout() {
+        self.isEnabled        = true
+        self.backgroundColor  = UIColor.systemBlue
+        self.setTitle("Play trailer", for: .normal)
+        self.applyRoundedCourners(of: 12)
+    }
+    
+    func disabledLayout() {
+        self.isEnabled        = false
+        self.backgroundColor  = UIColor.systemGray
+        self.setTitle("Trailer N/A", for: .normal)
         self.applyRoundedCourners(of: 12)
     }
 
