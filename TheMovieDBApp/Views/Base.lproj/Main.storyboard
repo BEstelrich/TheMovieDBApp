@@ -310,6 +310,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="MoviePlaceholder" width="539" height="718"/>
+        <image name="MoviePlaceholder" width="200" height="300"/>
     </resources>
 </document>
