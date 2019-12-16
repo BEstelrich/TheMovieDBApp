@@ -10,7 +10,8 @@ import Foundation
 
 import Foundation
 
-// MARK: - MovieDetails
+/// MOVIEDETAILS
+/// MovieDetails and its depending structures are used to populate MovieDetailViewController including video links.
 struct MovieDetails: Codable {
     
     let id           : Int
@@ -41,7 +42,6 @@ struct MovieDetails: Codable {
 }
 
 
-// MARK: - Videos
 struct Videos: Codable {
     
     let results: [Video]
@@ -49,28 +49,13 @@ struct Videos: Codable {
 }
 
 
-// MARK: - Video
 struct Video: Codable {
     
-    let id       : String
-    let iso639_1 : String
-    let iso3166_1: String
     let key      : String
-    let name     : String
-    let site     : String
-    let size     : Int
-    let type     : String
 
-    
+
     enum CodingKeys: String, CodingKey {
-        case id
-        case iso639_1 = "iso_639_1"
-        case iso3166_1 = "iso_3166_1"
         case key
-        case name
-        case site
-        case size
-        case type
     }
     
 }

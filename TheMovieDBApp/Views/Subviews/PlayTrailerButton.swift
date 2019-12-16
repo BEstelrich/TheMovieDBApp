@@ -30,6 +30,7 @@ class PlayTrailerButton: UIButton {
     }
     
     
+    /// This is the button setup used to display on the button when there are links to show in the correpondent movie.
     func defaultLayout() {
         self.isEnabled        = true
         self.backgroundColor  = UIColor.systemBlue
@@ -37,6 +38,8 @@ class PlayTrailerButton: UIButton {
         self.applyRoundedCourners(of: 12)
     }
     
+    
+    /// This is the button setup used to display on the button when there are no links to show in the correpondent movie.
     func disabledLayout() {
         self.isEnabled        = false
         self.backgroundColor  = UIColor.systemGray

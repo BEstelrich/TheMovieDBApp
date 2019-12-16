@@ -12,17 +12,20 @@ import WebKit
 
 class TrailerPlayerViewController: UIViewController {
     
+    // MARK: - IBOulets and properties.
     @IBOutlet weak var videoPlayer: WKWebView!
     
     var videoKey: String?
     
     
+    // MARK: - ViewController lifecycle.
     override func viewDidLoad() {
         super.viewDidLoad()
         playVideo(fromVideoKey: videoKey!)
     }
     
     
+    // MARK: - Local methods.
     func playVideo(fromVideoKey videoKey: String) {
         guard let videoURL = URL(string: "https://www.youtube.com/embed/\(videoKey)") else { return }
         
@@ -31,6 +34,7 @@ class TrailerPlayerViewController: UIViewController {
     }
     
 
+    // MARK: - IBActions.
     @IBAction func tapToCloseView(_ sender: UIBarButtonItem) {
         self.dismiss(animated: true, completion: nil)
     }

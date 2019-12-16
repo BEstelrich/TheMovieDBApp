@@ -8,18 +8,26 @@
 
 import UIKit
 
+
+/// Constants singleton is used to store static information in order to be accessed easily and avoid typos.
 class Constants {
     
-    final class Identifiers {
-        static let trendingMoviesCell: String = "TrendingMoviesCell"
-    }
-
-    
+    /// API
+    /// APIKey is saved in this class to be referenced from.
     final class API {
         static let APIKey = "af4529267a761468f007041392247475"
     }
     
     
+    /// IDENTIFIERS
+    /// This class gathers cell identifiers.
+    final class Identifiers {
+        static let trendingMoviesCell: String = "TrendingMoviesCell"
+    }
+
+    
+    /// SEGUES
+    /// This class gathers segue identifiers.
     final class Segues {
         static let movieToMovieDetailsSegue        : String = "MovieToMovieDetailsSegue"
         static let movieDetailsToTrailerPlayerSegue: String = "MovieDetailsToTrailerPlayerSegue"

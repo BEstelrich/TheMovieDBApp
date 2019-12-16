@@ -9,6 +9,7 @@
 import Foundation
 
 
+/// API protocol adds the level of abstraction needed to be called from all ViewControllers that have to fetch for JSON data.
 protocol APIData {
     
     func getData(fromURL url: URL, completion: @escaping (Codable?)->())
@@ -16,6 +17,7 @@ protocol APIData {
 }
 
 
+/// NetworkRequest is used from ViewControllers to fetch data from JSON.
 class NetworkRequest {
     
     private let apiData: APIData
@@ -32,6 +34,7 @@ class NetworkRequest {
 }
 
 
+/// This class has a method that fetchs Trending Movies from JSON through an URLSession.
 class FetchTrendingMovies: APIData {
 
     func getData(fromURL url: URL, completion: @escaping (Codable?)->()) {
@@ -55,6 +58,7 @@ class FetchTrendingMovies: APIData {
 }
 
 
+/// This class has a method that fetchs Movie Details from JSON through an URLSession.
 class FetchMovieDetails: APIData {
 
     func getData(fromURL url: URL, completion: @escaping (Codable?)->()) {

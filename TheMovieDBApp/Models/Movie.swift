@@ -8,7 +8,8 @@
 
 import Foundation
 
-// MARK: - JSON
+/// JSON
+/// This is the base struct where the model is built.
 struct JSON: Codable {
     
     let page        : Int
@@ -27,7 +28,8 @@ struct JSON: Codable {
 }
 
 
-// MARK: - Movie
+/// Movie
+/// Movie struct is used to populate the TrendingMoviesViewController.
 struct Movie: Codable {
     
     let id        : Int

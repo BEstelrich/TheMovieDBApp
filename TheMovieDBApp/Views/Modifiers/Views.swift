@@ -11,6 +11,7 @@ import UIKit
 @IBDesignable
 extension UIView {
     
+    // Through this extension rounded courners can be applied to any UIView object.
     func applyRoundedCourners(of radius: CGFloat) {
         self.layer.cornerRadius  = radius
         self.layer.masksToBounds = true

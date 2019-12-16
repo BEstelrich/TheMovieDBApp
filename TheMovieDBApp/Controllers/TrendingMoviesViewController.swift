@@ -11,6 +11,7 @@ import Kingfisher
 
 class TrendingMoviesViewController: UIViewController {
     
+    // MARK: - IBOulets and properties.
     @IBOutlet weak var trendingMoviesCollectionView: UICollectionView!
     
     var currentPageCount: Int = 1
@@ -18,6 +19,7 @@ class TrendingMoviesViewController: UIViewController {
     
     var movies: [Movie] = [Movie]() {
         didSet {
+            /// CollectionView is reloaded every time the movies array is set.
             DispatchQueue.main.async {
                 self.trendingMoviesCollectionView.reloadData()
             }
@@ -25,6 +27,7 @@ class TrendingMoviesViewController: UIViewController {
     }
     
     
+    // MARK: - ViewController lifecycle.
     override func viewDidLoad() {
         super.viewDidLoad()
         setupTrendingMoviesCollectionView()
@@ -32,12 +35,15 @@ class TrendingMoviesViewController: UIViewController {
     }
     
     
+    // MARK: - Local methods.
+    // This is a method called on scrollViewDidEndDecelerating to increase the JSON page and fetch the correspoding data.
     func updateNextPage() {
         currentPageCount += 1
         fetchData(fromPage: currentPageCount)
     }
     
     
+    /// The FetchData method has an instance of the NetworkRequest class to fetch the actual data coming from JSON and sort movies by popularity.
     func fetchData(fromPage page: Int) {
         let trendingMovies = NetworkRequest(apiData: FetchTrendingMovies())
         let url = URL(string: "https://api.themoviedb.org/3/trending/movie/day?api_key=\(Constants.API.APIKey)&page=\(page)")
@@ -59,6 +65,8 @@ class TrendingMoviesViewController: UIViewController {
     }
 
     
+    // MARK: - Segues.
+    /// On this method we're passing the movieID to the MovieDetailsViewController to be able to fetch for details in there.
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == Constants.Segues.movieToMovieDetailsSegue {
             if let movieDetailsViewController = segue.destination as? MovieDetailsViewController {
@@ -72,20 +80,24 @@ class TrendingMoviesViewController: UIViewController {
 }
 
 
-// MARK: - CollectionView
+// MARK: - Extensions
+/// CollectionView Extension.
 extension TrendingMoviesViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     
+    /// This function assigns CollectionView delegate and dataSource to itself.
     func setupTrendingMoviesCollectionView() {
         trendingMoviesCollectionView.delegate   = self
         trendingMoviesCollectionView.dataSource = self
     }
     
     
+    /// The number of items is gathered from the movies model array.
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return movies.count
     }
     
     
+    // Populating the CollectionView cell outlets with the movies array data.
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = trendingMoviesCollectionView.dequeueReusableCell(withReuseIdentifier: Constants.Identifiers.trendingMoviesCell, for: indexPath) as? TrendingMoviesCollectionViewCell else { return UICollectionViewCell() }
         
@@ -98,13 +110,13 @@ extension TrendingMoviesViewController: UICollectionViewDelegate, UICollectionVi
     }
     
     
+    /// Using this method to automatically start a new next JSON page Trending movies fetch when the last cell is shown on the screen.
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
         let visibleCells: [IndexPath] = trendingMoviesCollectionView.indexPathsForVisibleItems
         let lastIndexPath: IndexPath  = IndexPath(item: (movies.count - 1), section: 0)
 
         if visibleCells.contains(lastIndexPath) && currentPageCount <= pageCountLimit! {
             updateNextPage()
-            
         }
     }
     

@@ -11,6 +11,7 @@ import AVKit
 
 class MovieDetailsViewController: UIViewController {
     
+    // MARK: - IBOulets and properties.
     @IBOutlet weak var movieTitleLabel: UILabel!
     @IBOutlet weak var movieTaglineLabel: UILabel!
     @IBOutlet weak var movieReleaseDateLabel: UILabel!
@@ -23,17 +24,15 @@ class MovieDetailsViewController: UIViewController {
     var movieID: Int = 0
 
     
+    // MARK: - ViewController lifecycle.
     override func viewDidLoad() {
         super.viewDidLoad()
         fetchData()
     }
     
     
-    @IBAction func tapToCloseView(_ sender: UIBarButtonItem) {
-        self.dismiss(animated: true, completion: nil)
-    }
-    
-    
+    // MARK: - Local methods.
+    /// The FetchData method has an instance of the NetworkRequest class to fetch the actual data coming from JSON to show movie details.
     func fetchData() {
         let movieDetailsFetch = NetworkRequest(apiData: FetchMovieDetails())
         let url = URL(string: "https://api.themoviedb.org/3/movie/\(movieID)?api_key=\(Constants.API.APIKey)&language=en-US&append_to_response=videos")
@@ -45,10 +44,10 @@ class MovieDetailsViewController: UIViewController {
                 self?.populateMovieData()
             }
         }
-
     }
     
     
+    /// This function populates Outlets with movie details.
     func populateMovieData() {
         movieTitleLabel.text          = movieDetails?.title.isEmpty == false ? movieDetails?.title : movieDetails?.originalTitle
         movieTaglineLabel.text        = movieDetails?.tagline
@@ -60,10 +59,17 @@ class MovieDetailsViewController: UIViewController {
         if movieDetails?.posterPath != nil {
             moviePosterImageView.kf.setImage(with: URL(string: "https://image.tmdb.org/t/p/w500\(movieDetails!.posterPath)"))
         }
-
     }
     
     
+    // MARK: - IBActions.
+    @IBAction func tapToCloseView(_ sender: UIBarButtonItem) {
+        self.dismiss(animated: true, completion: nil)
+    }
+    
+    
+    // MARK: - Segues.
+    /// On this method we're passing the YouTube video key to the TrailerPlayerViewController.
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == Constants.Segues.movieDetailsToTrailerPlayerSegue {
             if let trailerPlayerViewController = segue.destination as? TrailerPlayerViewController {
