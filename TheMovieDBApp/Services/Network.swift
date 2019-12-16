@@ -37,17 +37,18 @@ class FetchTrendingMovies: APIData {
                     let JSONData = try JSONDecoder().decode(JSON.self, from: data!)
                     completion(JSONData)
                 } else {
-                    print("Fetching Movie Details API error: \(error.debugDescription)")
+                    print("Fetching Trending Movies API error: \(error.debugDescription)")
                     completion(nil)
                 }
 
             } catch let error {
-                print(error.localizedDescription)
+                print("Fetching Trending Movies API error: \(error.localizedDescription)")
                 completion(nil)
             }
         }.resume()
 
     }
+    
 
 }
 
@@ -67,7 +68,7 @@ class FetchMovieDetails: APIData {
                 }
 
             } catch let error {
-                print(error.localizedDescription)
+                print("Fetching Movie Details API error: \(error.localizedDescription)")
                 completion(nil)
             }
         }.resume()
