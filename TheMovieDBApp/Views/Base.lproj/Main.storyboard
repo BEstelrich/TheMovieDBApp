@@ -225,6 +225,10 @@
                                                 <state key="normal" title="Play trailer">
                                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 </state>
+                                                <connections>
+                                                    <action selector="tapToPlayTrailerButton:" destination="c3q-RG-q36" eventType="touchUpInside" id="9zk-bL-B9a"/>
+                                                    <segue destination="TE2-Ag-VJS" kind="presentation" identifier="MovieDetailsToTrailerPlayerSegue" id="uPH-EQ-Gs3"/>
+                                                </connections>
                                             </button>
                                         </subviews>
                                         <constraints>
@@ -316,6 +320,58 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="sO3-X6-rf6" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="137.68115942028987" y="137.94642857142856"/>
+        </scene>
+        <!--Trailer Player View Controller-->
+        <scene sceneID="qLT-Sz-aha">
+            <objects>
+                <viewController id="TE2-Ag-VJS" customClass="TrailerPlayerViewController" customModule="TheMovieDBApp" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Byz-1y-syJ">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <wkWebView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jUz-RP-00D">
+                                <rect key="frame" x="0.0" y="304.5" width="414" height="233"/>
+                                <color key="backgroundColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="jUz-RP-00D" secondAttribute="height" multiplier="16:9" id="CbH-sv-pHI"/>
+                                </constraints>
+                                <wkWebViewConfiguration key="configuration">
+                                    <audiovisualMediaTypes key="mediaTypesRequiringUserActionForPlayback" none="YES"/>
+                                    <wkPreferences key="preferences"/>
+                                </wkWebViewConfiguration>
+                            </wkWebView>
+                            <navigationBar contentMode="scaleToFill" barStyle="black" translucent="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dM3-9A-Zjk">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="56"/>
+                                <items>
+                                    <navigationItem title="Movie Trailer" id="JZV-XV-v4E">
+                                        <barButtonItem key="rightBarButtonItem" systemItem="done" id="jEX-iY-dEM">
+                                            <connections>
+                                                <action selector="tapToCloseView:" destination="TE2-Ag-VJS" id="tHz-vf-faA"/>
+                                            </connections>
+                                        </barButtonItem>
+                                    </navigationItem>
+                                </items>
+                            </navigationBar>
+                        </subviews>
+                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="jUz-RP-00D" firstAttribute="centerX" secondItem="Byz-1y-syJ" secondAttribute="centerX" id="6rk-xM-xtn"/>
+                            <constraint firstItem="jUz-RP-00D" firstAttribute="trailing" secondItem="DkO-mi-PgD" secondAttribute="trailing" id="Ln0-Yk-Eiu"/>
+                            <constraint firstItem="dM3-9A-Zjk" firstAttribute="top" secondItem="Byz-1y-syJ" secondAttribute="top" id="NAe-Uq-HQw"/>
+                            <constraint firstItem="dM3-9A-Zjk" firstAttribute="leading" secondItem="Byz-1y-syJ" secondAttribute="leading" id="ahc-sq-crb"/>
+                            <constraint firstItem="jUz-RP-00D" firstAttribute="centerY" secondItem="Byz-1y-syJ" secondAttribute="centerY" id="cuf-Fm-qup"/>
+                            <constraint firstItem="dM3-9A-Zjk" firstAttribute="trailing" secondItem="Byz-1y-syJ" secondAttribute="trailing" id="fpd-WQ-2R7"/>
+                            <constraint firstItem="jUz-RP-00D" firstAttribute="leading" secondItem="DkO-mi-PgD" secondAttribute="leading" id="kAw-89-0jI"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="DkO-mi-PgD"/>
+                    </view>
+                    <connections>
+                        <outlet property="videoPlayer" destination="jUz-RP-00D" id="SiL-so-WZI"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="9sx-a9-nx4" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2974" y="137"/>
         </scene>
     </scenes>
     <resources>

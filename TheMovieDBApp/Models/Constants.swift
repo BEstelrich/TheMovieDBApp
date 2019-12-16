@@ -24,7 +24,8 @@ class Constants {
     }
     
     final class Segues {
-        static let movieToMovieDetailsSegue: String = "MovieToMovieDetailsSegue"
+        static let movieToMovieDetailsSegue        : String = "MovieToMovieDetailsSegue"
+        static let movieDetailsToTrailerPlayerSegue: String = "MovieDetailsToTrailerPlayerSegue"
     }
     
     private init() {  }

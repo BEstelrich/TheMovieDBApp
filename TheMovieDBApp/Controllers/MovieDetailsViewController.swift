@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import AVKit
 
 class MovieDetailsViewController: UIViewController {
     
@@ -29,6 +30,10 @@ class MovieDetailsViewController: UIViewController {
     
     @IBAction func tapToCloseView(_ sender: UIBarButtonItem) {
         self.dismiss(animated: true, completion: nil)
+    }
+    
+    @IBAction func tapToPlayTrailerButton(_ sender: PlayTrailerButton) {
+
     }
     
     func fetchMovieDetailsAPI() {
@@ -61,9 +66,17 @@ class MovieDetailsViewController: UIViewController {
         movieReleaseDateLabel.text    = "RELEASED: " + (movieDetails?.releaseDate ?? "N/A")
         movieVoteAverageLabel.text    = movieDetails?.voteAverage != nil ? "★ " + "\(movieDetails!.voteAverage)" : "★ N/A"
         movieDescriptionTextView.text = movieDetails?.overview
-//        movieDetails?.video == true   ? moviePlayTrailerButton.defaultLayout() : moviePlayTrailerButton.disabledLayout()
         movieDetails?.videos.results.count != 0 ? moviePlayTrailerButton.defaultLayout() : moviePlayTrailerButton.disabledLayout()
         moviePosterImageView.kf.setImage(with: URL(string: "https://image.tmdb.org/t/p/w500\(movieDetails!.posterPath)"))
     }
     
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == Constants.Segues.movieDetailsToTrailerPlayerSegue {
+            if let trailerPlayerViewController = segue.destination as? TrailerPlayerViewController {
+                trailerPlayerViewController.videoKey = movieDetails?.videos.results.first?.key
+            }
+        }
+    }
+
 }

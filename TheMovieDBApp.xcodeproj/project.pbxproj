@@ -23,6 +23,7 @@
 		C98F93AD23A530DF00B5C633 /* TrendingMoviesCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C98F93AC23A530DF00B5C633 /* TrendingMoviesCollectionViewCell.swift */; };
 		C9BA5E5A23A5419D00730A75 /* Views.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9BA5E5923A5419D00730A75 /* Views.swift */; };
 		C9BA5E5D23A541DE00730A75 /* MovieCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9BA5E5C23A541DE00730A75 /* MovieCellView.swift */; };
+		C9BBC70023A7D744009D0606 /* TrailerPlayerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9BBC6FF23A7D744009D0606 /* TrailerPlayerViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -43,6 +44,7 @@
 		C98F93AC23A530DF00B5C633 /* TrendingMoviesCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrendingMoviesCollectionViewCell.swift; sourceTree = "<group>"; };
 		C9BA5E5923A5419D00730A75 /* Views.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Views.swift; sourceTree = "<group>"; };
 		C9BA5E5C23A541DE00730A75 /* MovieCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieCellView.swift; sourceTree = "<group>"; };
+		C9BBC6FF23A7D744009D0606 /* TrailerPlayerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrailerPlayerViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -122,6 +124,7 @@
 			children = (
 				C95518CA23A45DBF00D4F183 /* TrendingMoviesViewController.swift */,
 				C98F93A823A52F1100B5C633 /* MovieDetailsViewController.swift */,
+				C9BBC6FF23A7D744009D0606 /* TrailerPlayerViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -242,6 +245,7 @@
 				C98F93A923A52F1100B5C633 /* MovieDetailsViewController.swift in Sources */,
 				C95BB19623A6747600538E00 /* PlayTrailerButton.swift in Sources */,
 				C98F93AD23A530DF00B5C633 /* TrendingMoviesCollectionViewCell.swift in Sources */,
+				C9BBC70023A7D744009D0606 /* TrailerPlayerViewController.swift in Sources */,
 				C9BA5E5A23A5419D00730A75 /* Views.swift in Sources */,
 				C95518CB23A45DBF00D4F183 /* TrendingMoviesViewController.swift in Sources */,
 				C9BA5E5D23A541DE00730A75 /* MovieCellView.swift in Sources */,
