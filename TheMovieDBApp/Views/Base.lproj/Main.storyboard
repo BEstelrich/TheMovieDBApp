@@ -226,7 +226,6 @@
                                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 </state>
                                                 <connections>
-                                                    <action selector="tapToPlayTrailerButton:" destination="c3q-RG-q36" eventType="touchUpInside" id="9zk-bL-B9a"/>
                                                     <segue destination="TE2-Ag-VJS" kind="presentation" identifier="MovieDetailsToTrailerPlayerSegue" id="uPH-EQ-Gs3"/>
                                                 </connections>
                                             </button>
