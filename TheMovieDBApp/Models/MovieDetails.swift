@@ -12,6 +12,7 @@ import Foundation
 
 // MARK: - MovieDetails
 struct MovieDetails: Codable {
+    
     let id           : Int
     let posterPath   : String
     let video        : Bool
@@ -22,6 +23,7 @@ struct MovieDetails: Codable {
     let voteAverage  : Double
     let overview     : String
     let videos       : Videos
+    
 
     enum CodingKeys: String, CodingKey {
         case id
@@ -35,22 +37,40 @@ struct MovieDetails: Codable {
         case overview
         case videos
     }
+    
 }
 
+
+// MARK: - Videos
 struct Videos: Codable {
+    
     let results: [Video]
+    
 }
 
-struct Video: Codable {
-    let id, iso639_1, iso3166_1, key: String
-    let name, site: String
-    let size: Int
-    let type: String
 
+// MARK: - Video
+struct Video: Codable {
+    
+    let id       : String
+    let iso639_1 : String
+    let iso3166_1: String
+    let key      : String
+    let name     : String
+    let site     : String
+    let size     : Int
+    let type     : String
+
+    
     enum CodingKeys: String, CodingKey {
         case id
         case iso639_1 = "iso_639_1"
         case iso3166_1 = "iso_3166_1"
-        case key, name, site, size, type
+        case key
+        case name
+        case site
+        case size
+        case type
     }
+    
 }

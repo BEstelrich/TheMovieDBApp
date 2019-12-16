@@ -40,10 +40,8 @@ class TrendingMoviesViewController: UIViewController {
     
     func fetchData(fromPage page: Int) {
         let trendingMovies = NetworkRequest(apiData: FetchTrendingMovies())
-        
         let url = URL(string: "https://api.themoviedb.org/3/trending/movie/day?api_key=\(Constants.API.APIKey)&page=\(page)")
 
-        
         trendingMovies.fetch(fromURL: url!) { [weak self] (JSONData) in
             let JSONData = JSONData as? JSON
             let JSONMovies = JSONData?.results
@@ -58,7 +56,6 @@ class TrendingMoviesViewController: UIViewController {
                 $0.popularity > $1.popularity
             }
         }
-
     }
 
     
@@ -75,6 +72,7 @@ class TrendingMoviesViewController: UIViewController {
 }
 
 
+// MARK: - CollectionView
 extension TrendingMoviesViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     
     func setupTrendingMoviesCollectionView() {

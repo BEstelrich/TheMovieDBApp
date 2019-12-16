@@ -30,8 +30,7 @@ class MoviePosterView: UIImageView {
     
     
     func defaultLayout() {
-        self.applyRoundedCourners(of: Constants.Design.roundedCornersRadius)
+        self.applyRoundedCourners(of: 20)
     }
 
-    
 }

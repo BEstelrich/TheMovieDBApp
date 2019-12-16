@@ -13,19 +13,19 @@ class Constants {
     final class Identifiers {
         static let trendingMoviesCell: String = "TrendingMoviesCell"
     }
-    
-    final class Design {
-        static let roundedCornersRadius: CGFloat = 20
-    }
+
     
     final class API {
         static let APIKey = "af4529267a761468f007041392247475"
     }
+    
     
     final class Segues {
         static let movieToMovieDetailsSegue        : String = "MovieToMovieDetailsSegue"
         static let movieDetailsToTrailerPlayerSegue: String = "MovieDetailsToTrailerPlayerSegue"
     }
     
+    
     private init() {  }
+    
 }

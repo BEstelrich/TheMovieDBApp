@@ -10,10 +10,14 @@ import Foundation
 
 
 protocol APIData {
+    
     func getData(fromURL url: URL, completion: @escaping (Codable?)->())
+    
 }
 
+
 class NetworkRequest {
+    
     private let apiData: APIData
     
     init(apiData: APIData) {
@@ -24,13 +28,13 @@ class NetworkRequest {
     func fetch(fromURL url: URL, completion: @escaping (Codable?) -> ()) {
         apiData.getData(fromURL: url, completion: completion)
     }
+    
 }
 
 
 class FetchTrendingMovies: APIData {
 
     func getData(fromURL url: URL, completion: @escaping (Codable?)->()) {
-
         URLSession.shared.dataTask(with: url) { (data, response, error) in
             do {
                 if error == nil {
@@ -46,17 +50,14 @@ class FetchTrendingMovies: APIData {
                 completion(nil)
             }
         }.resume()
-
     }
     
-
 }
 
 
 class FetchMovieDetails: APIData {
 
     func getData(fromURL url: URL, completion: @escaping (Codable?)->()) {
-
         URLSession.shared.dataTask(with: url) { (data, response, error) in
             do {
                 if error == nil {
@@ -72,7 +73,6 @@ class FetchMovieDetails: APIData {
                 completion(nil)
             }
         }.resume()
-
     }
 
 }

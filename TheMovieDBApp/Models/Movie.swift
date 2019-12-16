@@ -10,24 +10,32 @@ import Foundation
 
 // MARK: - JSON
 struct JSON: Codable {
-    let page: Int
-    let results: [Movie]
-    let totalPages, totalResults: Int
+    
+    let page        : Int
+    let results     : [Movie]
+    let totalPages  : Int
+    let totalResults: Int
 
+    
     enum CodingKeys: String, CodingKey {
-        case page, results
-        case totalPages = "total_pages"
+        case page
+        case results
+        case totalPages   = "total_pages"
         case totalResults = "total_results"
     }
+    
 }
 
-// MARK: - Result
+
+// MARK: - Movie
 struct Movie: Codable {
-    let id: Int
+    
+    let id        : Int
     let posterPath: String
-    let title: String?
-    let name: String?
+    let title     : String?
+    let name      : String?
     let popularity: Double
+    
 
     enum CodingKeys: String, CodingKey {
         case id
@@ -36,4 +44,5 @@ struct Movie: Codable {
         case name
         case popularity
     }
+    
 }

@@ -33,7 +33,7 @@ class PlayTrailerButton: UIButton {
     func defaultLayout() {
         self.isEnabled        = true
         self.backgroundColor  = UIColor.systemBlue
-        self.setTitle("Play trailer", for: .normal)
+        self.setTitle("▶︎  Trailer", for: .normal)
         self.applyRoundedCourners(of: 12)
     }
     
@@ -44,5 +44,4 @@ class PlayTrailerButton: UIButton {
         self.applyRoundedCourners(of: 12)
     }
 
-    
 }
