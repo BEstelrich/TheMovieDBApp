@@ -28,6 +28,7 @@ class MovieDetailsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         fetchData()
+
     }
     
     
