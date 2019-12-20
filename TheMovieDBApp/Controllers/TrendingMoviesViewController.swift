@@ -54,7 +54,7 @@ class TrendingMoviesViewController: UIViewController {
             
             self?.pageCountLimit = JSONData?.totalPages
             
-            for movie in JSONMovies! {
+            for movie in JSONMovies ?? [Movie]() {
                 self?.movies.append(movie)
             }
 
