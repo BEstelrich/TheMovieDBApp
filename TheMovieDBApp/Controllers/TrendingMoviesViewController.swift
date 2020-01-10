@@ -36,13 +36,6 @@ class TrendingMoviesViewController: UIViewController {
     
     
     // MARK: - Local methods.
-    // This is a method called on scrollViewDidEndDecelerating to increase the JSON page and fetch the correspoding data.
-    func updateNextPage() {
-        currentPageCount += 1
-        fetchData(fromPage: currentPageCount)
-    }
-    
-    
     /// The FetchData method has an instance of the NetworkRequest class to fetch the actual data coming from JSON and sort movies by popularity.
     func fetchData(fromPage page: Int) {
         let trendingMovies = NetworkRequest(apiData: FetchTrendingMovies())
@@ -56,10 +49,6 @@ class TrendingMoviesViewController: UIViewController {
             
             for movie in JSONMovies ?? [Movie]() {
                 self?.movies.append(movie)
-            }
-
-            self?.movies.sort {
-                $0.popularity > $1.popularity
             }
         }
     }
@@ -112,11 +101,13 @@ extension TrendingMoviesViewController: UICollectionViewDelegate, UICollectionVi
     
     /// Using this method to automatically start a new next JSON page Trending movies fetch when the last cell is shown on the screen.
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
-        let visibleCells: [IndexPath] = trendingMoviesCollectionView.indexPathsForVisibleItems
-        let lastIndexPath: IndexPath  = IndexPath(item: (movies.count - 1), section: 0)
-
-        if visibleCells.contains(lastIndexPath) && currentPageCount <= pageCountLimit! {
-            updateNextPage()
+        let offsetY       = scrollView.contentOffset.y
+        let contentHeight = scrollView.contentSize.height
+        let height        = scrollView.frame.size.height
+        
+        if offsetY > contentHeight - height, currentPageCount <= pageCountLimit! {
+            currentPageCount += 1
+            fetchData(fromPage: currentPageCount)
         }
     }
     

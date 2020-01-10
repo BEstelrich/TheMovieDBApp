@@ -29,7 +29,7 @@
 - Kingfisher
 
 ## Description
-The goal of this short project is to create a simple iOS application that fetches Trending Movies from [TheMovieDB](https://developers.themoviedb.org/3/getting-started/introduction) API and displays them sorted by popularity, showing its correspondent movie details and playing its trailer.
+The goal of this short project is to create a simple iOS application that fetches Trending Movies from [TheMovieDB API](https://developers.themoviedb.org/3/getting-started/introduction) showing them in a nice interface, with their correspondent movie details and being able to play their trailers within the app.
 
 
 Movies are displayed using a CollectionView object and adapting the autolayout to landscape and portrait modes by traits variations.
