@@ -14,24 +14,27 @@ class TrendingMoviesViewController: UIViewController {
     // MARK: - IBOulets and properties.
     @IBOutlet weak var trendingMoviesCollectionView: UICollectionView!
     
+    enum Section: CaseIterable { case main }
+    var dataSource: UICollectionViewDiffableDataSource<Section, Movie>!
+    
     var currentPageCount: Int = 1
     var pageCountLimit: Int?
     
-    var movies: [Movie] = [Movie]() {
-        didSet {
-            /// CollectionView is reloaded every time the movies array is set.
-            DispatchQueue.main.async {
-                self.trendingMoviesCollectionView.reloadData()
-            }
-        }
-    }
-    
+    var movies = [Movie]()
+
     
     // MARK: - ViewController lifecycle.
     override func viewDidLoad() {
         super.viewDidLoad()
-        setupTrendingMoviesCollectionView()
+        configureSearchBar()
+        configureCollectionViewDataSource()
         fetchData(fromPage: currentPageCount)
+    }
+    
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        performSearch(searchQuery: nil)
     }
     
     
@@ -42,14 +45,31 @@ class TrendingMoviesViewController: UIViewController {
         let url = URL(string: "https://api.themoviedb.org/3/trending/movie/day?api_key=\(Constants.API.APIKey)&page=\(page)")
 
         trendingMovies.fetch(fromURL: url!) { [weak self] (JSONData) in
+            guard let self = self else { return }
+            
             let JSONData = JSONData as? JSON
             let JSONMovies = JSONData?.results
             
-            self?.pageCountLimit = JSONData?.totalPages
+            self.pageCountLimit = JSONData?.totalPages
             
             for movie in JSONMovies ?? [Movie]() {
-                self?.movies.append(movie)
+                self.movies.append(movie)
             }
+        }
+        
+        DispatchQueue.main.async { self.updateData() }
+    }
+
+    
+    /// Using this method to automatically start a new next JSON page Trending movies fetch when the last cell is shown on the screen.
+    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+        let offsetY       = scrollView.contentOffset.y
+        let contentHeight = scrollView.contentSize.height
+        let height        = scrollView.frame.size.height
+        
+        if offsetY > contentHeight - height, currentPageCount <= pageCountLimit! {
+            currentPageCount += 1
+            fetchData(fromPage: currentPageCount)
         }
     }
 
@@ -71,44 +91,63 @@ class TrendingMoviesViewController: UIViewController {
 
 // MARK: - Extensions
 /// CollectionView Extension.
-extension TrendingMoviesViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
-    
-    /// This function assigns CollectionView delegate and dataSource to itself.
-    func setupTrendingMoviesCollectionView() {
-        trendingMoviesCollectionView.delegate   = self
-        trendingMoviesCollectionView.dataSource = self
-    }
-    
-    
-    /// The number of items is gathered from the movies model array.
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return movies.count
-    }
-    
-    
-    // Populating the CollectionView cell outlets with the movies array data.
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = trendingMoviesCollectionView.dequeueReusableCell(withReuseIdentifier: Constants.Identifiers.trendingMoviesCell, for: indexPath) as? TrendingMoviesCollectionViewCell else { return UICollectionViewCell() }
-        
-        let movie = movies[indexPath.row]
-        cell.movieTitleLabel.text      = movie.title?.isEmpty == false ? movie.title : movie.name
-        cell.moviePopularityLabel.text = "Popularity: \(String(format:"%.3f", movie.popularity))"
-        cell.moviePosterImageView.kf.setImage(with: URL(string: "https://image.tmdb.org/t/p/w500\(movie.posterPath)"))
-        
-        return cell
-    }
-    
-    
-    /// Using this method to automatically start a new next JSON page Trending movies fetch when the last cell is shown on the screen.
-    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
-        let offsetY       = scrollView.contentOffset.y
-        let contentHeight = scrollView.contentSize.height
-        let height        = scrollView.frame.size.height
-        
-        if offsetY > contentHeight - height, currentPageCount <= pageCountLimit! {
-            currentPageCount += 1
-            fetchData(fromPage: currentPageCount)
+extension TrendingMoviesViewController: UICollectionViewDelegate {
+
+    /// This method configures de CollectionViewData source
+    func configureCollectionViewDataSource() {
+        dataSource = UICollectionViewDiffableDataSource<Section, Movie>(collectionView: trendingMoviesCollectionView) { (collectionView: UICollectionView, indexPath: IndexPath, movie: Movie) -> UICollectionViewCell? in
+            let cell = self.trendingMoviesCollectionView.dequeueReusableCell(withReuseIdentifier: Constants.Identifiers.trendingMoviesCell, for: indexPath) as! TrendingMoviesCollectionViewCell
+            cell.movieTitleLabel.text      = movie.title?.isEmpty == false ? movie.title : movie.name
+            cell.moviePopularityLabel.text = "Popularity: \(String(format:"%.3f", movie.popularity))"
+            cell.moviePosterImageView.kf.setImage(with: URL(string: "https://image.tmdb.org/t/p/w500\(movie.posterPath)"))
+            return cell
         }
+    }
+    
+    
+    /// UpdateData is the function that applies changes to the current snapshot.
+    func updateData() {
+        var snapshot = NSDiffableDataSourceSnapshot<Section, Movie>()
+        snapshot.appendSections([.main])
+        snapshot.appendItems(movies)
+        dataSource.apply(snapshot, animatingDifferences: true)
+    }
+    
+    
+    /// That's the function that sets the movies filtering criteria.
+    func performSearch(searchQuery: String?) {
+        let filteredCountries: [Movie]
+        
+        if let searchQuery = searchQuery, !searchQuery.isEmpty {
+            filteredCountries = movies.filter { $0.contains(query: searchQuery) }
+        } else {
+            filteredCountries = movies
+        }
+        
+        var snapshot = NSDiffableDataSourceSnapshot<Section, Movie>()
+        snapshot.appendSections([.main])
+        snapshot.appendItems(filteredCountries, toSection: .main)
+        dataSource.apply(snapshot, animatingDifferences: true)
+    }
+    
+}
+
+
+extension TrendingMoviesViewController: UISearchBarDelegate {
+    
+    /// This methods adds a searchController in the menubar defining a placeholder and setting the delegate to the current viewController.
+    func configureSearchBar() {
+        let searchController = UISearchController(searchResultsController: nil)
+        searchController.obscuresBackgroundDuringPresentation = false
+        searchController.searchBar.placeholder = "Search movies"
+        searchController.searchBar.delegate = self
+        self.navigationItem.searchController = searchController
+    }
+    
+    
+    /// By adding this method the filtering action performs every time there is a change in the searchBar text.
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        performSearch(searchQuery: searchText)
     }
     
 }

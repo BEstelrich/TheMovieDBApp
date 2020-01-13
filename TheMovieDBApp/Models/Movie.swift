@@ -16,8 +16,8 @@ struct JSON: Codable {
     let results     : [Movie]
     let totalPages  : Int
     let totalResults: Int
-
     
+
     enum CodingKeys: String, CodingKey {
         case page
         case results
@@ -30,13 +30,33 @@ struct JSON: Codable {
 
 /// Movie
 /// Movie struct is used to populate the TrendingMoviesViewController.
-struct Movie: Codable {
+struct Movie: Codable, Hashable {
     
-    let id        : Int
+    let id: Int
     let posterPath: String
-    let title     : String?
-    let name      : String?
+    let title: String?
+    let name: String?
     let popularity: Double
+    let identifier = UUID()
+    
+    
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(identifier)
+    }
+    
+    
+    static func ==(lhs: Movie, rhs: Movie) -> Bool {
+        return lhs.identifier == rhs.identifier
+    }
+    
+    
+    func contains(query: String?) -> Bool {
+        guard let query = query else { return false }
+        guard !query.isEmpty else { return false }
+        
+        let lowerCasedQuery = query.lowercased()
+        return title!.lowercased().contains(lowerCasedQuery)
+    }
     
 
     enum CodingKeys: String, CodingKey {

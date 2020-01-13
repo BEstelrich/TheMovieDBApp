@@ -105,14 +105,17 @@
                                         </connections>
                                     </collectionViewCell>
                                 </cells>
+                                <connections>
+                                    <outlet property="delegate" destination="BYZ-38-t0r" id="wSS-hT-ABH"/>
+                                </connections>
                             </collectionView>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
                             <constraint firstAttribute="bottom" secondItem="1dU-Io-41N" secondAttribute="bottom" id="3U2-Yy-rHI"/>
                             <constraint firstItem="1dU-Io-41N" firstAttribute="trailing" secondItem="8bC-Xf-vdC" secondAttribute="trailing" id="6zs-DY-7iM"/>
-                            <constraint firstItem="1dU-Io-41N" firstAttribute="top" secondItem="DNf-jb-oTh" secondAttribute="bottom" id="HM2-Pf-hbl"/>
                             <constraint firstItem="1dU-Io-41N" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="Kwh-bT-iiO"/>
+                            <constraint firstItem="1dU-Io-41N" firstAttribute="top" secondItem="DNf-jb-oTh" secondAttribute="bottom" id="r4q-TU-Wcz"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Trending Movies" id="aan-gd-XBk"/>
@@ -318,8 +321,8 @@
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="Nfu-t7-2bG" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="RMu-8i-ZF2">
-                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" largeTitles="YES" id="RMu-8i-ZF2">
+                        <rect key="frame" x="0.0" y="44" width="414" height="96"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
