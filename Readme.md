@@ -42,7 +42,14 @@ Movies are displayed using a CollectionView object and adapting the autolayout t
   </a>
 </p>
 
-The app adapts properly to light and dark mode as well and video is played through a WKWebView object. ViewControllers are presented modally according the new iOS13 look, not adapting to fullscreen by default.
+There is a new functionality added in the WWDC2019 (DiffableDataSource) and based in data snapshots, which allows filtering Collection/Table Views by title to be smoother than the traditional UICollectionViewDataSource method.
+<p align="center">
+  <a >
+		<img src="./GitHubAssets/SearchFilter.gif" alt="App icon" height="600"/>
+  </a>
+</p>
+
+Finally the app adapts properly to light and dark mode as well and video is played through a WKWebView object. ViewControllers are presented modally according the new iOS13 look, not adapting to fullscreen by default.
 <p align="center">
   <a >
 		<img src="./GitHubAssets/Screenshot4.png" alt="App icon" height="300"/>
@@ -51,6 +58,8 @@ The app adapts properly to light and dark mode as well and video is played throu
 		<img src="./GitHubAssets/Screenshot2.png" alt="App icon" height="600"/>
   </a>
 </p>
+
+
 
 
 ## App preview
