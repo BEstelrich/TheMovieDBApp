@@ -17,82 +17,59 @@ class TrendingMoviesViewController: UIViewController {
     enum Section: CaseIterable { case main }
     var dataSource: UICollectionViewDiffableDataSource<Section, Movie>!
     
-    var currentPageCount: Int = 1
-    var pageCountLimit: Int?
+    var jsonPageCount: Int    = 1
+    var jsonPageLimit: Int?
+    var isSearching           = false
     
-    var movies = [Movie]()
+    var movies                = [Movie]()
+    var filteredMovies        = [Movie]()
 
     
     // MARK: - ViewController lifecycle.
     override func viewDidLoad() {
         super.viewDidLoad()
-        configureSearchBar()
+        configureSearchController()
         configureCollectionViewDataSource()
-        fetchData(fromPage: currentPageCount)
-    }
-    
-    
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
-        performSearch(searchQuery: nil)
+        fetchData(from: jsonPageCount)
     }
     
     
     // MARK: - Local methods.
     /// The FetchData method has an instance of the NetworkRequest class to fetch the actual data coming from JSON and sort movies by popularity.
-    func fetchData(fromPage page: Int) {
-        let trendingMovies = NetworkRequest(apiData: FetchTrendingMovies())
-        let url = URL(string: "https://api.themoviedb.org/3/trending/movie/day?api_key=\(Constants.API.APIKey)&page=\(page)")
-
-        trendingMovies.fetch(fromURL: url!) { [weak self] (JSONData) in
+    func fetchData(from page: Int) {
+        NetworkManager.shared.getTrendingMovies(for: page) { [weak self] result in
             guard let self = self else { return }
             
-            let JSONData = JSONData as? JSON
-            let JSONMovies = JSONData?.results
-            
-            self.pageCountLimit = JSONData?.totalPages
-            
-            for movie in JSONMovies ?? [Movie]() {
-                self.movies.append(movie)
-            }
-        }
-        
-        DispatchQueue.main.async { self.updateData() }
-    }
-
-    
-    /// Using this method to automatically start a new next JSON page Trending movies fetch when the last cell is shown on the screen.
-    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
-        let offsetY       = scrollView.contentOffset.y
-        let contentHeight = scrollView.contentSize.height
-        let height        = scrollView.frame.size.height
-        
-        if offsetY > contentHeight - height, currentPageCount <= pageCountLimit! {
-            currentPageCount += 1
-            fetchData(fromPage: currentPageCount)
-        }
-    }
-
-    
-    // MARK: - Segues.
-    /// On this method we're passing the movieID to the MovieDetailsViewController to be able to fetch for details in there.
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == Constants.Segues.movieToMovieDetailsSegue {
-            if let movieDetailsViewController = segue.destination as? MovieDetailsViewController {
-                if let indexPath = trendingMoviesCollectionView.indexPathsForSelectedItems?.last {
-                    movieDetailsViewController.movieID = movies[indexPath.item].id
+            switch result {
+            case .success(let jsonData):
+                let movies         = jsonData.results
+                self.jsonPageLimit = jsonData.totalPages
+                
+                for movie in movies {
+                    self.movies.append(movie)
                 }
+                
+                self.updateData(on: self.movies)
+                
+            case .failure(let error):
+                print(error.rawValue)
+                break
             }
         }
     }
+    
+    
+    /// This methods adds a searchController in the menubar defining a placeholder and setting the delegate to the current viewController.
+    func configureSearchController() {
+        let searchController                                  = UISearchController()
+        searchController.searchResultsUpdater                 = self
+        searchController.searchBar.delegate                   = self
+        searchController.searchBar.placeholder                = "Search movies"
+        searchController.obscuresBackgroundDuringPresentation = false
+        navigationItem.searchController                       = searchController
+    }
 
-}
-
-
-// MARK: - Extensions
-/// CollectionView Extension.
-extension TrendingMoviesViewController: UICollectionViewDelegate {
-
+    
     /// This method configures de CollectionViewData source
     func configureCollectionViewDataSource() {
         dataSource = UICollectionViewDiffableDataSource<Section, Movie>(collectionView: trendingMoviesCollectionView) { (collectionView: UICollectionView, indexPath: IndexPath, movie: Movie) -> UICollectionViewCell? in
@@ -106,48 +83,68 @@ extension TrendingMoviesViewController: UICollectionViewDelegate {
     
     
     /// UpdateData is the function that applies changes to the current snapshot.
-    func updateData() {
+    func updateData(on movies: [Movie]) {
         var snapshot = NSDiffableDataSourceSnapshot<Section, Movie>()
         snapshot.appendSections([.main])
         snapshot.appendItems(movies)
-        dataSource.apply(snapshot, animatingDifferences: true)
+        DispatchQueue.main.async { self.dataSource.apply(snapshot, animatingDifferences: true) }
     }
     
-    
-    /// That's the function that sets the movies filtering criteria.
-    func performSearch(searchQuery: String?) {
-        let filteredCountries: [Movie]
-        
-        if let searchQuery = searchQuery, !searchQuery.isEmpty {
-            filteredCountries = movies.filter { $0.contains(query: searchQuery) }
-        } else {
-            filteredCountries = movies
+
+    // MARK: - Segues.
+    /// On this method we're passing the movieID to the MovieDetailsViewController to be able to fetch for details in there.
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == Constants.Segues.movieToMovieDetailsSegue {
+            if let movieDetailsViewController = segue.destination as? MovieDetailsViewController {
+                if let indexPath = trendingMoviesCollectionView.indexPathsForSelectedItems?.last {
+                    let activeArray                    = isSearching ? filteredMovies : movies
+                    movieDetailsViewController.movieID = activeArray[indexPath.item].id
+                }
+            }
         }
-        
-        var snapshot = NSDiffableDataSourceSnapshot<Section, Movie>()
-        snapshot.appendSections([.main])
-        snapshot.appendItems(filteredCountries, toSection: .main)
-        dataSource.apply(snapshot, animatingDifferences: true)
     }
-    
+
 }
 
 
-extension TrendingMoviesViewController: UISearchBarDelegate {
+// MARK: - Extensions
+/// CollectionView Extension.
+extension TrendingMoviesViewController: UICollectionViewDelegate {
     
-    /// This methods adds a searchController in the menubar defining a placeholder and setting the delegate to the current viewController.
-    func configureSearchBar() {
-        let searchController = UISearchController(searchResultsController: nil)
-        searchController.obscuresBackgroundDuringPresentation = false
-        searchController.searchBar.placeholder = "Search movies"
-        searchController.searchBar.delegate = self
-        self.navigationItem.searchController = searchController
+    /// Using this method to automatically start a new next JSON page Trending movies fetch when the last cell is shown on the screen.
+    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+        let offsetY       = scrollView.contentOffset.y
+        let contentHeight = scrollView.contentSize.height
+        let height        = scrollView.frame.size.height
+        
+        if offsetY > contentHeight - height, jsonPageCount <= jsonPageLimit! {
+            jsonPageCount += 1
+            fetchData(from: jsonPageCount)
+        }
+    }
+
+}
+
+
+extension TrendingMoviesViewController: UISearchBarDelegate, UISearchResultsUpdating {
+    
+    func updateSearchResults(for searchController: UISearchController) {
+        updateData(on: filteredMovies)
+        guard let filter = searchController.searchBar.text, !filter.isEmpty else {
+            isSearching = false
+            updateData(on: movies)
+            return
+        }
+        
+        isSearching    = true
+        filteredMovies = movies.filter({ $0.title!.lowercased().contains(filter.lowercased()) })
+        updateData(on: filteredMovies)
     }
     
     
-    /// By adding this method the filtering action performs every time there is a change in the searchBar text.
-    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        performSearch(searchQuery: searchText)
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        isSearching = false
+        updateData(on: movies)
     }
-    
+
 }

@@ -11,9 +11,9 @@ import UIKit
 class TrendingMoviesCollectionViewCell: UICollectionViewCell {
     
     // MARK: - IBOutlets
-    @IBOutlet weak var movieTitleLabel        : UILabel!
-    @IBOutlet weak var moviePopularityLabel   : UILabel!
-    @IBOutlet weak var moviePosterImageView   : UIImageView!
+    @IBOutlet weak var movieTitleLabel: UILabel!
+    @IBOutlet weak var moviePopularityLabel: UILabel!
+    @IBOutlet weak var moviePosterImageView: UIImageView!
     @IBOutlet weak var movieCellBackgroundView: MovieCellBackgroundView!
     
 }

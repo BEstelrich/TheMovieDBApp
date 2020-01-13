@@ -29,7 +29,7 @@ class Constants {
     /// SEGUES
     /// This class gathers segue identifiers.
     final class Segues {
-        static let movieToMovieDetailsSegue        : String = "MovieToMovieDetailsSegue"
+        static let movieToMovieDetailsSegue: String = "MovieToMovieDetailsSegue"
         static let movieDetailsToTrailerPlayerSegue: String = "MovieDetailsToTrailerPlayerSegue"
     }
     

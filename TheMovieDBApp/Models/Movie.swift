@@ -12,9 +12,9 @@ import Foundation
 /// This is the base struct where the model is built.
 struct JSON: Codable {
     
-    let page        : Int
-    let results     : [Movie]
-    let totalPages  : Int
+    let page: Int
+    let results: [Movie]
+    let totalPages: Int
     let totalResults: Int
     
 

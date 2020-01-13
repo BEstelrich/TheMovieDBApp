@@ -25,6 +25,7 @@
 		C9BA5E5D23A541DE00730A75 /* MovieCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9BA5E5C23A541DE00730A75 /* MovieCellView.swift */; };
 		C9BBC70023A7D744009D0606 /* TrailerPlayerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9BBC6FF23A7D744009D0606 /* TrailerPlayerViewController.swift */; };
 		C9BBC70323A7E7C8009D0606 /* Network.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9BBC70223A7E7C8009D0606 /* Network.swift */; };
+		C9DE14FD23CCFA5700D19AEA /* APIError.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9DE14FC23CCFA5700D19AEA /* APIError.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -47,6 +48,7 @@
 		C9BA5E5C23A541DE00730A75 /* MovieCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieCellView.swift; sourceTree = "<group>"; };
 		C9BBC6FF23A7D744009D0606 /* TrailerPlayerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrailerPlayerViewController.swift; sourceTree = "<group>"; };
 		C9BBC70223A7E7C8009D0606 /* Network.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Network.swift; sourceTree = "<group>"; };
+		C9DE14FC23CCFA5700D19AEA /* APIError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIError.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -86,6 +88,7 @@
 				C95518DD23A4612900D4F183 /* Controllers */,
 				C95518DE23A4613100D4F183 /* Resources */,
 				C9BBC70123A7E7B2009D0606 /* Services */,
+				C9DE14FB23CCFA3100D19AEA /* Utilities */,
 			);
 			path = TheMovieDBApp;
 			sourceTree = "<group>";
@@ -174,6 +177,14 @@
 			path = Services;
 			sourceTree = "<group>";
 		};
+		C9DE14FB23CCFA3100D19AEA /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				C9DE14FC23CCFA5700D19AEA /* APIError.swift */,
+			);
+			path = Utilities;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -256,6 +267,7 @@
 				C98F93A923A52F1100B5C633 /* MovieDetailsViewController.swift in Sources */,
 				C95BB19623A6747600538E00 /* PlayTrailerButton.swift in Sources */,
 				C98F93AD23A530DF00B5C633 /* TrendingMoviesCollectionViewCell.swift in Sources */,
+				C9DE14FD23CCFA5700D19AEA /* APIError.swift in Sources */,
 				C9BBC70023A7D744009D0606 /* TrailerPlayerViewController.swift in Sources */,
 				C9BA5E5A23A5419D00730A75 /* Views.swift in Sources */,
 				C95518CB23A45DBF00D4F183 /* TrendingMoviesViewController.swift in Sources */,
@@ -409,7 +421,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = W95FNEU9BX;
 				INFOPLIST_FILE = "TheMovieDBApp/Supporting files/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -427,7 +439,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = W95FNEU9BX;
 				INFOPLIST_FILE = "TheMovieDBApp/Supporting files/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",

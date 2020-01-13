@@ -14,16 +14,16 @@ import Foundation
 /// MovieDetails and its depending structures are used to populate MovieDetailViewController including video links.
 struct MovieDetails: Codable {
     
-    let id           : Int
-    let posterPath   : String
-    let video        : Bool
-    let title        : String
+    let id: Int
+    let posterPath: String
+    let video: Bool
+    let title: String
     let originalTitle: String
-    let tagline      : String
-    let releaseDate  : String
-    let voteAverage  : Double
-    let overview     : String
-    let videos       : Videos
+    let tagline: String
+    let releaseDate: String
+    let voteAverage: Double
+    let overview: String
+    let videos: Videos
     
 
     enum CodingKeys: String, CodingKey {
@@ -51,7 +51,7 @@ struct Videos: Codable {
 
 struct Video: Codable {
     
-    let key      : String
+    let key: String
 
 
     enum CodingKeys: String, CodingKey {

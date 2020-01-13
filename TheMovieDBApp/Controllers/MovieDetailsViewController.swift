@@ -27,22 +27,24 @@ class MovieDetailsViewController: UIViewController {
     // MARK: - ViewController lifecycle.
     override func viewDidLoad() {
         super.viewDidLoad()
-        fetchData()
-
+        fetchData(from: movieID)
     }
     
     
     // MARK: - Local methods.
     /// The FetchData method has an instance of the NetworkRequest class to fetch the actual data coming from JSON to show movie details.
-    func fetchData() {
-        let movieDetailsFetch = NetworkRequest(apiData: FetchMovieDetails())
-        let url = URL(string: "https://api.themoviedb.org/3/movie/\(movieID)?api_key=\(Constants.API.APIKey)&language=en-US&append_to_response=videos")
-        
-        movieDetailsFetch.fetch(fromURL: url!) { [weak self] (fetchedMovieDetails) in
-            self?.movieDetails = fetchedMovieDetails as? MovieDetails
-
-            DispatchQueue.main.async {
-                self?.populateMovieData()
+    func fetchData(from movieID: Int) {
+        NetworkManager.shared.getMovieDetails(for: movieID) { [weak self] result in
+            guard let self = self else { return }
+            
+            switch result {
+            case .success(let jsonData):
+                self.movieDetails = jsonData
+                self.populateMovieData()
+                
+            case .failure(let error):
+                print(error.rawValue)
+                break
             }
         }
     }
@@ -50,15 +52,19 @@ class MovieDetailsViewController: UIViewController {
     
     /// This function populates Outlets with movie details.
     func populateMovieData() {
-        movieTitleLabel.text          = movieDetails?.title.isEmpty == false ? movieDetails?.title : movieDetails?.originalTitle
-        movieTaglineLabel.text        = movieDetails?.tagline
-        movieReleaseDateLabel.text    = "RELEASED: " + (movieDetails?.releaseDate ?? "N/A")
-        movieVoteAverageLabel.text    = movieDetails?.voteAverage != nil ? "★ " + "\(movieDetails!.voteAverage)" : "★ N/A"
-        movieDescriptionTextView.text = movieDetails?.overview
-        movieDetails?.videos.results.count != 0 ? moviePlayTrailerButton.defaultLayout() : moviePlayTrailerButton.disabledLayout()
-        
-        if movieDetails?.posterPath != nil {
-            moviePosterImageView.kf.setImage(with: URL(string: "https://image.tmdb.org/t/p/w500\(movieDetails!.posterPath)"))
+        DispatchQueue.main.async { [weak self] in
+            guard let self = self else { return }
+            
+            self.movieTitleLabel.text          = self.movieDetails?.title.isEmpty == false ? self.movieDetails?.title : self.movieDetails?.originalTitle
+            self.movieTaglineLabel.text        = self.movieDetails?.tagline
+            self.movieReleaseDateLabel.text    = "RELEASED: " + (self.movieDetails?.releaseDate ?? "N/A")
+            self.movieVoteAverageLabel.text    = self.movieDetails?.voteAverage != nil ? "★ " + "\(self.movieDetails!.voteAverage)" : "★ N/A"
+            self.movieDescriptionTextView.text = self.movieDetails?.overview
+            self.movieDetails?.videos.results.count != 0 ? self.moviePlayTrailerButton.defaultLayout() : self.moviePlayTrailerButton.disabledLayout()
+            
+            if self.movieDetails?.posterPath != nil {
+                self.moviePosterImageView.kf.setImage(with: URL(string: "https://image.tmdb.org/t/p/w500\(self.movieDetails!.posterPath)"))
+            }
         }
     }
     
