@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Kingfisher
 
 class TrendingMoviesCollectionViewCell: UICollectionViewCell {
     
@@ -15,5 +16,12 @@ class TrendingMoviesCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var moviePopularityLabel: UILabel!
     @IBOutlet weak var moviePosterImageView: UIImageView!
     @IBOutlet weak var movieCellBackgroundView: MovieCellBackgroundView!
+    
+    
+    func populateCell(for movie: Movie) {
+        movieTitleLabel.text      = movie.title?.isEmpty == false ? movie.title : movie.name
+        moviePopularityLabel.text = "Popularity: \(String(format:"%.3f", movie.popularity))"
+        moviePosterImageView.kf.setImage(with: URL(string: "https://image.tmdb.org/t/p/w500\(movie.posterPath)"))
+    }
     
 }

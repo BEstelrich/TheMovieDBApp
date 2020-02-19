@@ -8,7 +8,6 @@
 
 import UIKit
 
-
 @IBDesignable
 class PlayTrailerButton: UIButton {
     
@@ -32,8 +31,8 @@ class PlayTrailerButton: UIButton {
     
     /// This is the button setup used to display on the button when there are links to show in the correpondent movie.
     func defaultLayout() {
-        self.isEnabled        = true
-        self.backgroundColor  = UIColor.systemBlue
+        self.isEnabled       = true
+        self.backgroundColor = UIColor.systemBlue
         self.setTitle("▶︎  Trailer", for: .normal)
         self.applyRoundedCourners(of: 12)
     }
@@ -41,8 +40,8 @@ class PlayTrailerButton: UIButton {
     
     /// This is the button setup used to display on the button when there are no links to show in the correpondent movie.
     func disabledLayout() {
-        self.isEnabled        = false
-        self.backgroundColor  = UIColor.systemGray
+        self.isEnabled       = false
+        self.backgroundColor = UIColor.systemGray
         self.setTitle("Trailer N/A", for: .normal)
         self.applyRoundedCourners(of: 12)
     }

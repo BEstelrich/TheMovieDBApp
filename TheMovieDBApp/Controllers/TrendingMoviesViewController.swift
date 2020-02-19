@@ -17,12 +17,12 @@ class TrendingMoviesViewController: UIViewController {
     enum Section: CaseIterable { case main }
     var dataSource: UICollectionViewDiffableDataSource<Section, Movie>!
     
-    var jsonPageCount: Int    = 1
+    var jsonPageCount: Int  = 1
     var jsonPageLimit: Int?
-    var isSearching           = false
+    var isSearching         = false
     
-    var movies                = [Movie]()
-    var filteredMovies        = [Movie]()
+    var movies              = [Movie]()
+    var filteredMovies      = [Movie]()
 
     
     // MARK: - ViewController lifecycle.
@@ -45,10 +45,7 @@ class TrendingMoviesViewController: UIViewController {
                 let movies         = jsonData.results
                 self.jsonPageLimit = jsonData.totalPages
                 
-                for movie in movies {
-                    self.movies.append(movie)
-                }
-                
+                movies.forEach { self.movies.append($0) }
                 self.updateData(on: self.movies)
                 
             case .failure(let error):
@@ -74,9 +71,7 @@ class TrendingMoviesViewController: UIViewController {
     func configureCollectionViewDataSource() {
         dataSource = UICollectionViewDiffableDataSource<Section, Movie>(collectionView: trendingMoviesCollectionView) { (collectionView: UICollectionView, indexPath: IndexPath, movie: Movie) -> UICollectionViewCell? in
             let cell = self.trendingMoviesCollectionView.dequeueReusableCell(withReuseIdentifier: Constants.Identifiers.trendingMoviesCell, for: indexPath) as! TrendingMoviesCollectionViewCell
-            cell.movieTitleLabel.text      = movie.title?.isEmpty == false ? movie.title : movie.name
-            cell.moviePopularityLabel.text = "Popularity: \(String(format:"%.3f", movie.popularity))"
-            cell.moviePosterImageView.kf.setImage(with: URL(string: "https://image.tmdb.org/t/p/w500\(movie.posterPath)"))
+            cell.populateCell(for: movie)
             return cell
         }
     }

@@ -24,7 +24,7 @@
 		C9BA5E5A23A5419D00730A75 /* Views.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9BA5E5923A5419D00730A75 /* Views.swift */; };
 		C9BA5E5D23A541DE00730A75 /* MovieCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9BA5E5C23A541DE00730A75 /* MovieCellView.swift */; };
 		C9BBC70023A7D744009D0606 /* TrailerPlayerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9BBC6FF23A7D744009D0606 /* TrailerPlayerViewController.swift */; };
-		C9BBC70323A7E7C8009D0606 /* Network.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9BBC70223A7E7C8009D0606 /* Network.swift */; };
+		C9BBC70323A7E7C8009D0606 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9BBC70223A7E7C8009D0606 /* NetworkManager.swift */; };
 		C9DE14FD23CCFA5700D19AEA /* APIError.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9DE14FC23CCFA5700D19AEA /* APIError.swift */; };
 /* End PBXBuildFile section */
 
@@ -47,7 +47,7 @@
 		C9BA5E5923A5419D00730A75 /* Views.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Views.swift; sourceTree = "<group>"; };
 		C9BA5E5C23A541DE00730A75 /* MovieCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieCellView.swift; sourceTree = "<group>"; };
 		C9BBC6FF23A7D744009D0606 /* TrailerPlayerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrailerPlayerViewController.swift; sourceTree = "<group>"; };
-		C9BBC70223A7E7C8009D0606 /* Network.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Network.swift; sourceTree = "<group>"; };
+		C9BBC70223A7E7C8009D0606 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 		C9DE14FC23CCFA5700D19AEA /* APIError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIError.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -69,7 +69,9 @@
 				C95518C523A45DBF00D4F183 /* TheMovieDBApp */,
 				C95518C423A45DBF00D4F183 /* Products */,
 			);
+			indentWidth = 4;
 			sourceTree = "<group>";
+			tabWidth = 4;
 		};
 		C95518C423A45DBF00D4F183 /* Products */ = {
 			isa = PBXGroup;
@@ -99,7 +101,6 @@
 				C95518D423A45DC100D4F183 /* Info.plist */,
 				C95518C623A45DBF00D4F183 /* AppDelegate.swift */,
 				C95518C823A45DBF00D4F183 /* SceneDelegate.swift */,
-				C95518D123A45DC100D4F183 /* LaunchScreen.storyboard */,
 			);
 			path = "Supporting files";
 			sourceTree = "<group>";
@@ -107,7 +108,6 @@
 		C95518DB23A4610900D4F183 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				C98F93AA23A52FBF00B5C633 /* Constants.swift */,
 				C95BB19723A6759E00538E00 /* Movie.swift */,
 				C905C31423A686C100FFCE1C /* MovieDetails.swift */,
 			);
@@ -118,6 +118,7 @@
 			isa = PBXGroup;
 			children = (
 				C95518CC23A45DBF00D4F183 /* Main.storyboard */,
+				C95518D123A45DC100D4F183 /* LaunchScreen.storyboard */,
 				C9BA5E5E23A5421A00730A75 /* Cells */,
 				C9BA5E5B23A541C100730A75 /* Subviews */,
 				C9BA5E5823A5416500730A75 /* Modifiers */,
@@ -172,7 +173,7 @@
 		C9BBC70123A7E7B2009D0606 /* Services */ = {
 			isa = PBXGroup;
 			children = (
-				C9BBC70223A7E7C8009D0606 /* Network.swift */,
+				C9BBC70223A7E7C8009D0606 /* NetworkManager.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -180,6 +181,7 @@
 		C9DE14FB23CCFA3100D19AEA /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
+				C98F93AA23A52FBF00B5C633 /* Constants.swift */,
 				C9DE14FC23CCFA5700D19AEA /* APIError.swift */,
 			);
 			path = Utilities;
@@ -275,7 +277,7 @@
 				C95518C723A45DBF00D4F183 /* AppDelegate.swift in Sources */,
 				C95BB19823A6759E00538E00 /* Movie.swift in Sources */,
 				C95518C923A45DBF00D4F183 /* SceneDelegate.swift in Sources */,
-				C9BBC70323A7E7C8009D0606 /* Network.swift in Sources */,
+				C9BBC70323A7E7C8009D0606 /* NetworkManager.swift in Sources */,
 				C905C31523A686C100FFCE1C /* MovieDetails.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

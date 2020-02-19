@@ -53,7 +53,7 @@ struct Video: Codable {
     
     let key: String
 
-
+    
     enum CodingKeys: String, CodingKey {
         case key
     }

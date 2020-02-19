@@ -28,7 +28,7 @@ struct JSON: Codable {
 }
 
 
-/// Movie
+/// MOVIE
 /// Movie struct is used to populate the TrendingMoviesViewController.
 struct Movie: Codable, Hashable {
     

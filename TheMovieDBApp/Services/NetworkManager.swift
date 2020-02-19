@@ -1,5 +1,5 @@
 //
-//  Network.swift
+//  NetworkManager.swift
 //  TheMovieDBApp
 //
 //  Created by BES on 2019-12-16.
