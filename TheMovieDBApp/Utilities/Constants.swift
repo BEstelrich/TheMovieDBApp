@@ -15,7 +15,7 @@ class Constants {
     /// API
     /// APIKey is saved in this class to be referenced from.
     final class API {
-        static let APIKey = "Add your APIKey here!"
+        static let APIKey = "YourAPIKeyGoesHere!"
     }
     
     
